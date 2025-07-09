@@ -115,7 +115,7 @@ const EditActivityModal = ({
   customStatuses,
   customRisks,
   currentTheme,
-}) => {
+}: any) => {
   // Estado local para os dados da atividade no modal
   const [editedActivity, setEditedActivity] = useState(activity);
 
@@ -125,9 +125,15 @@ const EditActivityModal = ({
   }, [activity]);
 
   // Lida com a mudança nos campos do formulário
-  const handleChange = (e) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setEditedActivity((prev) => ({
+    setEditedActivity((prev: any) => ({
       ...prev,
       [name]: value,
     }));
@@ -149,16 +155,19 @@ const EditActivityModal = ({
     "Não Iniciado",
   ];
   // Combina status padrão com status personalizados, removendo duplicatas
-  const allStatuses = [
-    ...new Set([...defaultStatuses, ...customStatuses.map((s) => s.name)]),
-  ];
+  const allStatuses = Array.from(
+    new Set([
+      ...defaultStatuses,
+      ...customStatuses.map((s: any) => s.name),
+    ]).values()
+  );
 
   // Opções de risco padrão
   const defaultRisks = ["Alto", "Média", "Baixo"];
   // Combina riscos padrão com riscos personalizados, removendo duplicatas
-  const allRisks = [
-    ...new Set([...defaultRisks, ...customRisks.map((r) => r.name)]),
-  ];
+  const allRisks = Array.from(
+    new Set([...defaultRisks, ...customRisks.map((r: any) => r.name)]).values()
+  );
 
   return (
     <div
@@ -522,7 +531,7 @@ const EditActivityModal = ({
               id="observacoes"
               value={editedActivity.observacoes}
               onChange={handleChange}
-              rows="3"
+              rows={3}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
               style={{
                 backgroundColor: currentTheme.background,
@@ -545,7 +554,7 @@ const EditActivityModal = ({
               id="dependencias"
               value={editedActivity.dependencias.join(", ")}
               onChange={(e) =>
-                setEditedActivity((prev) => ({
+                setEditedActivity((prev: any) => ({
                   ...prev,
                   dependencias: e.target.value
                     .split(",")
@@ -574,7 +583,7 @@ const EditActivityModal = ({
               id="recursosNecessarios"
               value={editedActivity.recursosNecessarios.join(", ")}
               onChange={(e) =>
-                setEditedActivity((prev) => ({
+                setEditedActivity((prev: any) => ({
                   ...prev,
                   recursosNecessarios: e.target.value
                     .split(",")
@@ -700,7 +709,7 @@ const AddActivityModal = ({
   customStatuses,
   customRisks,
   currentTheme,
-}) => {
+}: any) => {
   // Estado local para os dados da nova atividade
   const [newActivity, setNewActivity] = useState({
     atividade: "",
@@ -726,9 +735,9 @@ const AddActivityModal = ({
   });
 
   // Lida com a mudança nos campos do formulário
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setNewActivity((prev) => ({
+    setNewActivity((prev: any) => ({
       ...prev,
       [name]: value,
     }));
@@ -748,16 +757,19 @@ const AddActivityModal = ({
     "Não Iniciado",
   ];
   // Combina status padrão com status personalizados, removendo duplicatas
-  const allStatuses = [
-    ...new Set([...defaultStatuses, ...customStatuses.map((s) => s.name)]),
-  ];
+  const allStatuses = Array.from(
+    new Set([
+      ...defaultStatuses,
+      ...customStatuses.map((s: any) => s.name),
+    ]).values()
+  );
 
   // Opções de risco padrão
   const defaultRisks = ["Alto", "Média", "Baixo"];
   // Combina riscos padrão com riscos personalizados, removendo duplicatas
-  const allRisks = [
-    ...new Set([...defaultRisks, ...customRisks.map((r) => r.name)]),
-  ];
+  const allRisks = Array.from(
+    new Set([...defaultRisks, ...customRisks.map((r: any) => r.name)]).values()
+  );
 
   return (
     <div
@@ -1121,7 +1133,7 @@ const AddActivityModal = ({
               id="new-observacoes"
               value={newActivity.observacoes}
               onChange={handleChange}
-              rows="3"
+              rows={3}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
               style={{
                 backgroundColor: currentTheme.background,
@@ -1144,7 +1156,7 @@ const AddActivityModal = ({
               id="new-dependencias"
               value={newActivity.dependencias.join(", ")}
               onChange={(e) =>
-                setNewActivity((prev) => ({
+                setNewActivity((prev: any) => ({
                   ...prev,
                   dependencias: e.target.value
                     .split(",")
@@ -1173,7 +1185,7 @@ const AddActivityModal = ({
               id="new-recursosNecessarios"
               value={newActivity.recursosNecessarios.join(", ")}
               onChange={(e) =>
-                setNewActivity((prev) => ({
+                setNewActivity((prev: any) => ({
                   ...prev,
                   recursosNecessarios: e.target.value
                     .split(",")
@@ -1293,9 +1305,15 @@ const AddActivityModal = ({
 };
 
 // Componente para o Heatmap
-const Heatmap = ({ data, rowLabels, colLabels, maxCount, currentTheme }) => {
+const Heatmap = ({
+  data,
+  rowLabels,
+  colLabels,
+  maxCount,
+  currentTheme,
+}: any) => {
   // Função para determinar a cor de fundo de uma célula com base na contagem
-  const getColor = (count) => {
+  const getColor = (count: any) => {
     if (maxCount === 0) return currentTheme.tableHeaderBg; // Cor padrão se não houver dados
     const intensity = count / maxCount;
     // Escala de cores baseada no tema
@@ -1330,7 +1348,7 @@ const Heatmap = ({ data, rowLabels, colLabels, maxCount, currentTheme }) => {
             style={{ backgroundColor: currentTheme.tableHeaderBg }}
           ></div>{" "}
           {/* Espaço vazio para alinhar com os rótulos das linhas */}
-          {colLabels.map((label) => (
+          {colLabels.map((label: any) => (
             <div
               key={label}
               className="flex-1 p-2 text-center text-xs font-semibold border rounded-t-md"
@@ -1345,7 +1363,7 @@ const Heatmap = ({ data, rowLabels, colLabels, maxCount, currentTheme }) => {
           ))}
         </div>
         {/* Linhas de Dados: Rótulo da Linha (Disciplina) + Células do Heatmap */}
-        {rowLabels.map((rowLabel) => (
+        {rowLabels.map((rowLabel: any) => (
           <div key={rowLabel} className="flex flex-row">
             <div
               className="w-32 p-2 text-right text-xs font-semibold border rounded-l-md flex-shrink-0"
@@ -1357,7 +1375,7 @@ const Heatmap = ({ data, rowLabels, colLabels, maxCount, currentTheme }) => {
             >
               {rowLabel}
             </div>
-            {colLabels.map((colLabel) => (
+            {colLabels.map((colLabel: any) => (
               <div
                 key={`${rowLabel}-${colLabel}`}
                 className={`flex-1 p-2 text-center text-sm font-medium border rounded-sm`}
@@ -1381,14 +1399,29 @@ const Heatmap = ({ data, rowLabels, colLabels, maxCount, currentTheme }) => {
   );
 };
 
+const config = {
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+};
+
+const __firebase_config = JSON.stringify(config);
+
+const __app_id = config.appId;
+
+const __initial_auth_token = "";
+
 // Componente para o Modal de Seleção/Criação de Dashboard
 const DashboardSelectorModal = ({
   currentTheme,
   onSelectDashboard,
   onCreateNewDashboard,
   onClose,
-}) => {
-  const [dashboards, setDashboards] = useState([]);
+}: any) => {
+  const [dashboards, setDashboards] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [newDashboardName, setNewDashboardName] = useState("");
@@ -1399,7 +1432,7 @@ const DashboardSelectorModal = ({
   const [passwordError, setPasswordError] = useState("");
 
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
-  
+
   // Default Firebase configuration for development/testing
   const defaultFirebaseConfig = {
     apiKey: "demo-api-key",
@@ -1407,9 +1440,9 @@ const DashboardSelectorModal = ({
     projectId: "demo-project",
     storageBucket: "demo-project.appspot.com",
     messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    appId: "1:123456789:web:abcdef123456",
   };
-  
+
   const firebaseConfig = (() => {
     try {
       if (typeof __firebase_config !== "undefined" && __firebase_config) {
@@ -1422,14 +1455,16 @@ const DashboardSelectorModal = ({
     } catch (e) {
       console.warn("Failed to parse Firebase config:", e);
     }
-    
-    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+
+    console.warn(
+      "Using default Firebase configuration for development. Please configure Firebase properly for production."
+    );
     return defaultFirebaseConfig;
   })();
 
-  const [db, setDb] = useState(null);
-  const [auth, setAuth] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const [db, setDb] = useState<any>(null);
+  const [auth, setAuth] = useState<any>(null);
+  const [userId, setUserId] = useState<any>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
 
   // Initialize Firebase and set up auth listener
@@ -1546,14 +1581,16 @@ const DashboardSelectorModal = ({
     }
   };
 
-  const handleOpenDashboard = (dashboard) => {
+  const handleOpenDashboard = (dashboard: any) => {
     setSelectedDashboardId(dashboard.id);
     setShowPasswordPrompt(true);
   };
 
   const handlePasswordSubmit = () => {
     setPasswordError("");
-    const selectedDash = dashboards.find((d) => d.id === selectedDashboardId);
+    const selectedDash = dashboards.find(
+      (d: any) => d.id === selectedDashboardId
+    );
     if (selectedDash && selectedDash.password === passwordInput) {
       onSelectDashboard(selectedDashboardId);
       onClose();
@@ -1648,7 +1685,7 @@ const DashboardSelectorModal = ({
             </p>
           ) : (
             <ul className="space-y-2">
-              {dashboards.map((dashboard) => (
+              {dashboards.map((dashboard: any) => (
                 <li
                   key={dashboard.id}
                   className="flex justify-between items-center p-3 rounded-md border"
@@ -1690,7 +1727,8 @@ const DashboardSelectorModal = ({
               style={{ color: currentTheme.textColor }}
             >
               Digite a senha para "
-              {dashboards.find((d) => d.id === selectedDashboardId)?.name}":
+              {dashboards.find((d: any) => d.id === selectedDashboardId)?.name}
+              ":
             </h3>
             <input
               type="password"
@@ -1803,12 +1841,12 @@ const DashboardSelectorModal = ({
 // Componente principal do aplicativo
 const App = () => {
   // Firebase state
-  const [db, setDb] = useState(null);
-  const [auth, setAuth] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [isAuthReady, setIsAuthReady] = useState(false);
+  const [db, setDb] = useState<any>(null);
+  const [auth, setAuth] = useState<any>(null);
+  const [userId, setUserId] = useState<any>(null);
+  const [isAuthReady, setIsAuthReady] = useState<any>(false);
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
-  
+
   // Default Firebase configuration for development/testing
   const defaultFirebaseConfig = {
     apiKey: "demo-api-key",
@@ -1816,9 +1854,9 @@ const App = () => {
     projectId: "demo-project",
     storageBucket: "demo-project.appspot.com",
     messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    appId: "1:123456789:web:abcdef123456",
   };
-  
+
   const firebaseConfig = (() => {
     try {
       if (typeof __firebase_config !== "undefined" && __firebase_config) {
@@ -1831,24 +1869,29 @@ const App = () => {
     } catch (e) {
       console.warn("Failed to parse Firebase config:", e);
     }
-    
-    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+
+    console.warn(
+      "Using default Firebase configuration for development. Please configure Firebase properly for production."
+    );
     return defaultFirebaseConfig;
   })();
 
   // Dashboard state
-  const [activeDashboardId, setActiveDashboardId] = useState(null);
+  const [activeDashboardId, setActiveDashboardId] = useState<string | null>(
+    null
+  );
   const [activeDashboardName, setActiveDashboardName] = useState("");
   const [showDashboardSelector, setShowDashboardSelector] = useState(true); // Show selector on initial load
 
   // Theme state
-  const [currentThemeKey, setCurrentThemeKey] = useState("light");
+  const [currentThemeKey, setCurrentThemeKey] =
+    useState<keyof typeof themes>("light");
   const currentTheme = themes[currentThemeKey];
 
   // Activities state (now loaded from/saved to Firestore)
-  const [allActivities, setAllActivities] = useState([]);
-  const [customStatuses, setCustomStatuses] = useState([]);
-  const [customRisks, setCustomRisks] = useState([]);
+  const [allActivities, setAllActivities] = useState<any[]>([]);
+  const [customStatuses, setCustomStatuses] = useState<any[]>([]);
+  const [customRisks, setCustomRisks] = useState<any[]>([]);
 
   // Other UI states
   const [searchTerm, setSearchTerm] = useState("");
@@ -1978,7 +2021,7 @@ const App = () => {
     let newStartDate = "";
     let newEndDate = "";
 
-    const getFormattedDate = (date) => date.toISOString().split("T")[0];
+    const getFormattedDate = (date: Date) => date.toISOString().split("T")[0];
 
     switch (selectedPeriod) {
       case "Semana":
@@ -2033,7 +2076,7 @@ const App = () => {
 
   // Effect to dynamically load html2canvas and jspdf libraries
   useEffect(() => {
-    const loadScript = (src, id, onloadCallback) => {
+    const loadScript = (src: string, id: string, onloadCallback: any) => {
       if (document.getElementById(id)) {
         onloadCallback();
         return;
@@ -2083,7 +2126,7 @@ const App = () => {
   }, []);
 
   // Function to show temporary feedback
-  const showFeedback = (message) => {
+  const showFeedback = (message: string) => {
     setFeedbackMessage(message);
     const timer = setTimeout(() => {
       setFeedbackMessage("");
@@ -2100,9 +2143,12 @@ const App = () => {
       "Atrasado",
       "Não Iniciado",
     ];
-    const allExistingStatusNames = [
-      ...new Set([...defaultStatuses, ...customStatuses.map((s) => s.name)]),
-    ];
+    const allExistingStatusNames = Array.from<string>(
+      new Set([
+        ...defaultStatuses,
+        ...customStatuses.map((s: any) => s.name),
+      ]).values()
+    );
 
     if (trimmedInput === "") {
       showFeedback("O nome do status não pode ser vazio!");
@@ -2114,7 +2160,7 @@ const App = () => {
       return;
     }
 
-    setCustomStatuses((prev) => [
+    setCustomStatuses((prev: any) => [
       ...prev,
       { name: trimmedInput, color: newStatusColor },
     ]);
@@ -2127,9 +2173,12 @@ const App = () => {
   const handleAddRisk = () => {
     const trimmedInput = newRiskInput.trim();
     const defaultRisks = ["Alto", "Média", "Baixo"];
-    const allExistingRiskNames = [
-      ...new Set([...defaultRisks, ...customRisks.map((r) => r.name)]),
-    ];
+    const allExistingRiskNames = Array.from(
+      new Set([
+        ...defaultRisks,
+        ...customRisks.map((r: any) => r.name),
+      ]).values()
+    );
 
     if (trimmedInput === "") {
       showFeedback("O nome do risco não pode ser vazio!");
@@ -2141,7 +2190,7 @@ const App = () => {
       return;
     }
 
-    setCustomRisks((prev) => [
+    setCustomRisks((prev: any) => [
       ...prev,
       { name: trimmedInput, color: newRiskColor },
     ]);
@@ -2151,21 +2200,22 @@ const App = () => {
   };
 
   // Function to get background color for a status
-  const getStatusBgColor = (statusName) => {
+  const getStatusBgColor = (statusName: string) => {
     const defaultColors = {
       Concluído: "#D1FAE5",
       "Em Andamento": "#DBEAFE",
       Atrasado: "#FEE2E2",
       "Não Iniciado": "#F3F4F6",
     };
-    const custom = customStatuses.find((s) => s.name === statusName);
+    const custom = customStatuses.find((s: any) => s.name === statusName);
     return custom
       ? custom.color
-      : defaultColors[statusName] || currentTheme.tableHeaderBg;
+      : defaultColors[statusName as keyof typeof defaultColors] ||
+          currentTheme.tableHeaderBg;
   };
 
   // Function to get text color for a status
-  const getStatusTextColor = (statusName) => {
+  const getStatusTextColor = (statusName: string) => {
     const defaultTextColors = {
       Concluído: "#065F46",
       "Em Andamento": "#1E40AF",
@@ -2176,11 +2226,14 @@ const App = () => {
     if (custom) {
       return getLuminance(custom.color) > 0.5 ? "#1F2937" : "#FFFFFF";
     }
-    return defaultTextColors[statusName] || currentTheme.textColor;
+    return (
+      defaultTextColors[statusName as keyof typeof defaultTextColors] ||
+      currentTheme.textColor
+    );
   };
 
   // Function to get background color for a risk
-  const getRiskBgColor = (riskName) => {
+  const getRiskBgColor = (riskName: string) => {
     const defaultColors = {
       Alto: "#FEE2E2",
       Média: "#FEF3C7",
@@ -2189,11 +2242,12 @@ const App = () => {
     const custom = customRisks.find((r) => r.name === riskName);
     return custom
       ? custom.color
-      : defaultColors[riskName] || currentTheme.tableHeaderBg;
+      : defaultColors[riskName as keyof typeof defaultColors] ||
+          currentTheme.tableHeaderBg;
   };
 
   // Function to get text color for a risk
-  const getRiskTextColor = (riskName) => {
+  const getRiskTextColor = (riskName: string) => {
     const defaultTextColors = {
       Alto: "#991B1B",
       Média: "#92400E",
@@ -2203,7 +2257,10 @@ const App = () => {
     if (custom) {
       return getLuminance(custom.color) > 0.5 ? "#1F2937" : "#FFFFFF";
     }
-    return defaultTextColors[riskName] || currentTheme.textColor;
+    return (
+      defaultTextColors[riskName as keyof typeof defaultTextColors] ||
+      currentTheme.textColor
+    );
   };
 
   // Column definitions for the table
@@ -2257,35 +2314,35 @@ const App = () => {
 
   // State to control column visibility
   const [visibleColumns, setVisibleColumns] = useState(() => {
-    const initialVisibility = {};
-    columnDefinitions.forEach((col) => {
+    const initialVisibility: Record<string, any> = {};
+    columnDefinitions.forEach((col: any) => {
       initialVisibility[col.key] = col.defaultVisible;
     });
     return initialVisibility;
   });
 
   // Toggle column visibility
-  const handleToggleColumnVisibility = (key) => {
-    setVisibleColumns((prev) => ({
+  const handleToggleColumnVisibility = (key: any) => {
+    setVisibleColumns((prev: any) => ({
       ...prev,
       [key]: !prev[key],
     }));
   };
 
   // Calculate dashboard summaries
-  const getStatusSummary = (type, activitiesToSummarize) => {
+  const getStatusSummary = (type: any, activitiesToSummarize: any) => {
     const summary = {
       Concluído: 0,
       "Em Andamento": 0,
       Atrasado: 0,
       "Não Iniciado": 0,
     };
-    customStatuses.forEach((status) => {
-      summary[status.name] = 0;
+    customStatuses.forEach((status: any) => {
+      summary[status.name as keyof typeof summary] = 0;
     });
 
-    activitiesToSummarize.forEach((activity) => {
-      const status =
+    activitiesToSummarize.forEach((activity: any) => {
+      const status: keyof typeof summary =
         type === "planejado" ? activity.statusPlanejado : activity.statusReal;
       if (summary[status] !== undefined) {
         summary[status]++;
@@ -2295,13 +2352,13 @@ const App = () => {
   };
 
   // Filter activities based on search terms and date filters
-  const filteredActivities = allActivities.filter((activity) => {
+  const filteredActivities = allActivities.filter((activity: any) => {
     const activityDate =
       activity.dataInicialReal || activity.dataInicialPlanejada;
 
     const matchesSearch =
       searchTerm === "" ||
-      Object.values(activity).some((value) =>
+      Object.values(activity as Record<string, any>).some((value: any) =>
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
       );
     const matchesStatus =
@@ -2327,70 +2384,75 @@ const App = () => {
   });
 
   // Calculate overdue and remaining days for each filtered activity
-  const activitiesWithCalculatedMetrics = filteredActivities.map((activity) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  const activitiesWithCalculatedMetrics = filteredActivities.map(
+    (activity: any) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-    const plannedEndDate = activity.dataFinalPlanejada
-      ? new Date(activity.dataFinalPlanejada)
-      : null;
-    const realEndDate = activity.dataFinalReal
-      ? new Date(activity.dataFinalReal)
-      : null;
+      const plannedEndDate = activity.dataFinalPlanejada
+        ? new Date(activity.dataFinalPlanejada)
+        : null;
+      const realEndDate = activity.dataFinalReal
+        ? new Date(activity.dataFinalReal)
+        : null;
 
-    let diasAtraso = 0;
-    let diasRemanescentes = 0;
+      let diasAtraso = 0;
+      let diasRemanescentes = 0;
 
-    if (activity.statusReal === "Atrasado" && plannedEndDate) {
-      diasAtraso = Math.max(
-        0,
-        Math.ceil(
+      if (activity.statusReal === "Atrasado" && plannedEndDate) {
+        diasAtraso = Math.max(
+          0,
+          Math.ceil(
+            (today.getTime() - plannedEndDate.getTime()) / (1000 * 60 * 60 * 24)
+          )
+        );
+      } else if (
+        activity.statusReal === "Concluído" &&
+        plannedEndDate &&
+        realEndDate &&
+        realEndDate > plannedEndDate
+      ) {
+        diasAtraso = Math.ceil(
+          (realEndDate.getTime() - plannedEndDate.getTime()) /
+            (1000 * 60 * 60 * 24)
+        );
+      } else if (
+        (activity.statusReal === "Em Andamento" ||
+          activity.statusReal === "Não Iniciado") &&
+        plannedEndDate &&
+        today > plannedEndDate
+      ) {
+        diasAtraso = Math.ceil(
           (today.getTime() - plannedEndDate.getTime()) / (1000 * 60 * 60 * 24)
-        )
-      );
-    } else if (
-      activity.statusReal === "Concluído" &&
-      plannedEndDate &&
-      realEndDate &&
-      realEndDate > plannedEndDate
-    ) {
-      diasAtraso = Math.ceil(
-        (realEndDate.getTime() - plannedEndDate.getTime()) /
-          (1000 * 60 * 60 * 24)
-      );
-    } else if (
-      (activity.statusReal === "Em Andamento" ||
-        activity.statusReal === "Não Iniciado") &&
-      plannedEndDate &&
-      today > plannedEndDate
-    ) {
-      diasAtraso = Math.ceil(
-        (today.getTime() - plannedEndDate.getTime()) / (1000 * 60 * 60 * 24)
-      );
-    }
+        );
+      }
 
-    if (
-      activity.statusReal !== "Concluído" &&
-      plannedEndDate &&
-      plannedEndDate > today
-    ) {
-      diasRemanescentes = Math.ceil(
-        (plannedEndDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-      );
-    }
+      if (
+        activity.statusReal !== "Concluído" &&
+        plannedEndDate &&
+        plannedEndDate > today
+      ) {
+        diasRemanescentes = Math.ceil(
+          (plannedEndDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+        );
+      }
 
-    return {
-      ...activity,
-      diasAtraso,
-      diasRemanescentes,
-    };
-  });
+      return {
+        ...activity,
+        diasAtraso,
+        diasRemanescentes,
+      };
+    }
+  );
 
   const plannedSummary = getStatusSummary(
     "planejado",
     activitiesWithCalculatedMetrics
   );
-  const realSummary = getStatusSummary("real", activitiesWithCalculatedMetrics);
+  const realSummary: Record<string, number> = getStatusSummary(
+    "real",
+    activitiesWithCalculatedMetrics
+  );
 
   const totalActivities = activitiesWithCalculatedMetrics.length;
   const completedActivities = activitiesWithCalculatedMetrics.filter(
@@ -2400,12 +2462,12 @@ const App = () => {
     totalActivities > 0 ? (completedActivities / totalActivities) * 100 : 0;
 
   // Get unique responsible persons for the filter
-  const uniqueResponsaveis = [
-    ...new Set(allActivities.map((act) => act.responsavel)),
-  ];
+  const uniqueResponsaveis = Array.from(
+    new Set(allActivities.map((act: any) => act.responsavel)).values()
+  );
 
   // Format date function
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     if (!dateString) return "N/A";
     try {
       const date = new Date(dateString);
@@ -2416,7 +2478,7 @@ const App = () => {
   };
 
   // Format currency function
-  const formatCurrency = (value) => {
+  const formatCurrency = (value: any) => {
     if (value === undefined || value === null) return "N/A";
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -2425,7 +2487,7 @@ const App = () => {
   };
 
   // Open edit modal
-  const handleEditClick = (activity) => {
+  const handleEditClick = (activity: any) => {
     setCurrentActivityToEdit(activity);
     setIsEditModalOpen(true);
   };
@@ -2437,9 +2499,9 @@ const App = () => {
   };
 
   // Save activity changes (updates Firestore via useEffect)
-  const handleSaveActivity = (updatedActivity) => {
-    setAllActivities((prevActivities) =>
-      prevActivities.map((act) =>
+  const handleSaveActivity = (updatedActivity: any) => {
+    setAllActivities((prevActivities: any) =>
+      prevActivities.map((act: any) =>
         act.id === updatedActivity.id ? updatedActivity : act
       )
     );
@@ -2456,8 +2518,11 @@ const App = () => {
   };
 
   // Add new activity (updates Firestore via useEffect)
-  const handleAddNewActivity = (newActivity) => {
-    setAllActivities((prevActivities) => [...prevActivities, newActivity]);
+  const handleAddNewActivity = (newActivity: any) => {
+    setAllActivities((prevActivities: any[]) => [
+      ...prevActivities,
+      newActivity,
+    ]);
   };
 
   // Export report as PDF
@@ -2474,7 +2539,7 @@ const App = () => {
 
     if (reportElement) {
       try {
-        const canvas = await window.html2canvas(reportElement, {
+        const canvas = await (window as any).html2canvas(reportElement, {
           scale: 2,
           useCORS: true,
           windowWidth: reportElement.scrollWidth,
@@ -2482,7 +2547,7 @@ const App = () => {
         });
 
         const imgData = canvas.toDataURL("image/png");
-        const pdf = new window.jspdf.jsPDF("p", "mm", "a4");
+        const pdf = new (window as any).jspdf.jsPDF("p", "mm", "a4");
 
         const imgWidth = 210;
         const pageHeight = 297;
@@ -2520,7 +2585,7 @@ const App = () => {
   // Data preparation for charts
   const statusChartData = Object.keys(plannedSummary).map((status) => ({
     status: status,
-    Planejado: plannedSummary[status],
+    Planejado: plannedSummary[status as keyof typeof plannedSummary],
     Real: realSummary[status],
   }));
 
@@ -2622,13 +2687,17 @@ const App = () => {
     "#FF6384",
   ];
 
-  const heatmapData = {};
-  const allDisciplinesForHeatmap = [
-    ...new Set(activitiesWithCalculatedMetrics.map((act) => act.disciplina)),
-  ];
-  const allResponsaveisForHeatmap = [
-    ...new Set(activitiesWithCalculatedMetrics.map((act) => act.responsavel)),
-  ];
+  const heatmapData: Record<string, any> = {};
+  const allDisciplinesForHeatmap = Array.from(
+    new Set(
+      activitiesWithCalculatedMetrics.map((act) => act.disciplina)
+    ).values()
+  );
+  const allResponsaveisForHeatmap = Array.from(
+    new Set(
+      activitiesWithCalculatedMetrics.map((act) => act.responsavel)
+    ).values()
+  );
 
   allDisciplinesForHeatmap.forEach((discipline) => {
     heatmapData[discipline] = {};
@@ -2649,8 +2718,8 @@ const App = () => {
   let maxActivityCount = 0;
   Object.values(heatmapData).forEach((disciplineCounts) => {
     Object.values(disciplineCounts).forEach((count) => {
-      if (count > maxActivityCount) {
-        maxActivityCount = count;
+      if ((count as number) > maxActivityCount) {
+        maxActivityCount = count as number;
       }
     });
   });
@@ -2660,7 +2729,7 @@ const App = () => {
     .sort((a, b) => {
       const dateA = new Date(a.dataFinalPlanejada);
       const dateB = new Date(b.dataFinalPlanejada);
-      return dateA - dateB;
+      return dateA.getTime() - dateB.getTime();
     });
 
   const remainingDaysActivities = activitiesWithCalculatedMetrics
@@ -2833,7 +2902,7 @@ const App = () => {
     riskData,
   ]);
 
-  const handleSelectDashboard = useCallback((id) => {
+  const handleSelectDashboard = useCallback((id: string) => {
     setActiveDashboardId(id);
     setShowDashboardSelector(false);
   }, []);
@@ -2918,11 +2987,11 @@ const App = () => {
                 borderColor: currentTheme.tableBorder,
               }}
               value={currentThemeKey}
-              onChange={(e) => setCurrentThemeKey(e.target.value)}
+              onChange={(e) => setCurrentThemeKey(e.target.value as any)}
             >
               {Object.keys(themes).map((key) => (
                 <option key={key} value={key}>
-                  {themes[key].name}
+                  {themes[key as keyof typeof themes].name}
                 </option>
               ))}
             </select>
@@ -2977,9 +3046,10 @@ const App = () => {
           >
             Status Real
           </h2>
-          {Object.entries(realSummary).map(([status, count]) => (
+          {Object.entries(realSummary as any).map(([status, count]) => (
             <p key={status} style={{ color: currentTheme.secondaryTextColor }}>
-              <span className="font-medium">{status}:</span> {count} atividades
+              <span className="font-medium">{status}:</span> {count as number}{" "}
+              atividades
             </p>
           ))}
         </div>
@@ -3379,7 +3449,7 @@ const App = () => {
                 fill={currentTheme.chartPrimary}
                 dataKey="value"
                 label={({ name, percent }) =>
-                  `${name}: ${(percent * 100).toFixed(0)}%`
+                  `${name}: ${((percent ?? 1) * 100).toFixed(0)}%`
                 }
               >
                 {completionPieData.map((entry, index) => (
@@ -3390,7 +3460,7 @@ const App = () => {
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value) => `${value.toFixed(1)}%`}
+                formatter={(value) => `${(value as number).toFixed(1)}%`}
                 contentStyle={{
                   backgroundColor: currentTheme.cardBackground,
                   color: currentTheme.textColor,
@@ -3767,15 +3837,15 @@ const App = () => {
           >
             <option value="Todos">Filtrar por Status Real</option>
             {/* Opções de status padrão + personalizados */}
-            {[
-              ...new Set([
+            {Array.from(
+              new Set([
                 "Concluído",
                 "Em Andamento",
                 "Atrasado",
                 "Não Iniciado",
                 ...customStatuses.map((s) => s.name),
-              ]),
-            ].map((status) => (
+              ])
+            ).map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>
@@ -4303,7 +4373,7 @@ const App = () => {
                     fill={currentTheme.chartPrimary}
                     dataKey="value"
                     label={({ name, percent }) =>
-                      `${name}: ${(percent * 100).toFixed(0)}%`
+                      `${name}: ${((percent ?? 1) * 100).toFixed(0)}%`
                     }
                   >
                     {completionPieData.map((entry, index) => (
@@ -4314,7 +4384,7 @@ const App = () => {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value) => `${value.toFixed(1)}%`}
+                    formatter={(value) => `${(value as number).toFixed(1)}%`}
                     contentStyle={{
                       backgroundColor: currentTheme.cardBackground,
                       color: currentTheme.textColor,
@@ -4380,7 +4450,7 @@ const App = () => {
                     borderColor: currentTheme.tableBorder,
                   }}
                 >
-                  {costChartData.map((data, index) => (
+                  {costChartData.map((data: any, index) => (
                     <tr key={index}>
                       <td
                         className="px-6 py-4 whitespace-nowrap text-sm font-medium"
@@ -4855,7 +4925,7 @@ const App = () => {
                   }}
                 >
                   {Object.entries(activitiesByResponsibleSummary).map(
-                    ([responsavel, summary]) => (
+                    ([responsavel, summary]: [any, any]) => (
                       <tr key={responsavel}>
                         <td
                           className="px-6 py-4 whitespace-nowrap text-sm font-medium"
