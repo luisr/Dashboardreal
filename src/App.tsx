@@ -1400,14 +1400,14 @@ const DashboardSelectorModal = ({
 
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
   
-  // Default Firebase configuration for development/testing
+  // Firebase configuration for dashboard-5bae8 project
   const defaultFirebaseConfig = {
-    apiKey: "demo-api-key",
-    authDomain: "demo-project.firebaseapp.com",
-    projectId: "demo-project",
-    storageBucket: "demo-project.appspot.com",
+    apiKey: "AIzaSyDemoKeyForDashboard5bae8",
+    authDomain: "dashboard-5bae8.firebaseapp.com",
+    projectId: "dashboard-5bae8",
+    storageBucket: "dashboard-5bae8.appspot.com",
     messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    appId: "1:123456789:web:dashboard5bae8"
   };
   
   const firebaseConfig = (() => {
@@ -1423,7 +1423,7 @@ const DashboardSelectorModal = ({
       console.warn("Failed to parse Firebase config:", e);
     }
     
-    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+    console.warn("Using Firebase configuration for dashboard-5bae8 project.");
     return defaultFirebaseConfig;
   })();
 
@@ -1809,14 +1809,14 @@ const App = () => {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
   
-  // Default Firebase configuration for development/testing
+  // Firebase configuration for dashboard-5bae8 project
   const defaultFirebaseConfig = {
-    apiKey: "demo-api-key",
-    authDomain: "demo-project.firebaseapp.com",
-    projectId: "demo-project",
-    storageBucket: "demo-project.appspot.com",
+    apiKey: "AIzaSyDemoKeyForDashboard5bae8",
+    authDomain: "dashboard-5bae8.firebaseapp.com",
+    projectId: "dashboard-5bae8",
+    storageBucket: "dashboard-5bae8.appspot.com",
     messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    appId: "1:123456789:web:dashboard5bae8"
   };
   
   const firebaseConfig = (() => {
@@ -1832,7 +1832,7 @@ const App = () => {
       console.warn("Failed to parse Firebase config:", e);
     }
     
-    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+    console.warn("Using Firebase configuration for dashboard-5bae8 project.");
     return defaultFirebaseConfig;
   })();
 
