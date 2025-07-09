@@ -1841,32 +1841,16 @@ const App = () => {
   const [activeDashboardName, setActiveDashboardName] = useState("");
   const [showDashboardSelector, setShowDashboardSelector] = useState(true); // Show selector on initial load
 
-  // Theme state
-  const [currentThemeKey, setCurrentThemeKey] = useState("light");
-  const currentTheme = themes[currentThemeKey];
-
-  // Activities state (now loaded from/saved to Firestore)
-  const [allActivities, setAllActivities] = useState([]);
-  const [customStatuses, setCustomStatuses] = useState([]);
-  const [customRisks, setCustomRisks] = useState([]);
-
-  // Other UI states
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("Todos");
-  const [filterResponsavel, setFilterResponsavel] = useState("Todos");
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentActivityToEdit, setCurrentActivityToEdit] = useState(null);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [selectedPeriod, setSelectedPeriod] = useState("Todos");
-  const [isTableSettingsOpen, setIsTableSettingsOpen] = useState(false);
-  const [isReportSectionOpen, setIsReportSectionOpen] = useState(false);
-  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-  const [pdfLibsLoaded, setPdfLibsLoaded] = useState(false);
-  const [generatedAnalysis, setGeneratedAnalysis] = useState("");
-  const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
-  const [newStatusInput, setNewStatusInput] = useState("");
+  // Firebase configuration using environment variables
+  const firebaseConfig = {
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId,
+    measurementId: process.env.REACT_APP_measurementId
+  };
   const [newStatusColor, setNewStatusColor] = useState("#000000");
   const [newRiskInput, setNewRiskInput] = useState("");
   const [newRiskColor, setNewRiskColor] = useState("#000000");
