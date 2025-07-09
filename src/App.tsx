@@ -37,6 +37,14 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+function generateUUIDv4Fallback(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0; // número aleatório entre 0 e 15
+    const v = c === 'x' ? r : (r & 0x3 | 0x8); // força o formato UUID v4
+    return v.toString(16);
+  });
+}
+
 // Definição dos temas com paletas de cores
 const themes = {
   light: {
@@ -1486,7 +1494,7 @@ const DashboardSelectorModal = ({
             } else {
               await signInAnonymously(firebaseAuth);
             }
-            setUserId(firebaseAuth.currentUser?.uid || crypto.randomUUID());
+            setUserId(firebaseAuth.currentUser?.uid || generateUUIDv4Fallback());
           } catch (anonError) {
             console.error("Erro ao autenticar anonimamente:", anonError);
             setError("Falha na autenticação. Tente recarregar a página.");
@@ -1933,7 +1941,7 @@ const App = () => {
             } else {
               await signInAnonymously(firebaseAuth);
             }
-            setUserId(firebaseAuth.currentUser?.uid || crypto.randomUUID());
+            setUserId(firebaseAuth.currentUser?.uid || generateUUIDv4Fallback());
           } catch (anonError) {
             console.error("Erro ao autenticar anonimamente:", anonError);
           }
