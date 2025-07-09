@@ -99,7 +99,7 @@ const themes = {
 };
 
 // Função auxiliar para calcular a luminância de uma cor hexadecimal
-const getLuminance = (hexColor) => {
+const getLuminance = (hexColor: string) => {
   const hex = hexColor.substring(1); // Remove #
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
