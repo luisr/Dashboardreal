@@ -1399,9 +1399,33 @@ const DashboardSelectorModal = ({
   const [passwordError, setPasswordError] = useState("");
 
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
-  const firebaseConfig = JSON.parse(
-    typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
-  );
+  
+  // Default Firebase configuration for development/testing
+  const defaultFirebaseConfig = {
+    apiKey: "demo-api-key",
+    authDomain: "demo-project.firebaseapp.com",
+    projectId: "demo-project",
+    storageBucket: "demo-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+  };
+  
+  const firebaseConfig = (() => {
+    try {
+      if (typeof __firebase_config !== "undefined" && __firebase_config) {
+        const config = JSON.parse(__firebase_config);
+        // Validate that required fields are present
+        if (config.projectId && config.apiKey) {
+          return config;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to parse Firebase config:", e);
+    }
+    
+    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+    return defaultFirebaseConfig;
+  })();
 
   const [db, setDb] = useState(null);
   const [auth, setAuth] = useState(null);
@@ -1784,9 +1808,33 @@ const App = () => {
   const [userId, setUserId] = useState(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const appId = typeof __app_id !== "undefined" ? __app_id : "default-app-id";
-  const firebaseConfig = JSON.parse(
-    typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
-  );
+  
+  // Default Firebase configuration for development/testing
+  const defaultFirebaseConfig = {
+    apiKey: "demo-api-key",
+    authDomain: "demo-project.firebaseapp.com",
+    projectId: "demo-project",
+    storageBucket: "demo-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+  };
+  
+  const firebaseConfig = (() => {
+    try {
+      if (typeof __firebase_config !== "undefined" && __firebase_config) {
+        const config = JSON.parse(__firebase_config);
+        // Validate that required fields are present
+        if (config.projectId && config.apiKey) {
+          return config;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to parse Firebase config:", e);
+    }
+    
+    console.warn("Using default Firebase configuration for development. Please configure Firebase properly for production.");
+    return defaultFirebaseConfig;
+  })();
 
   // Dashboard state
   const [activeDashboardId, setActiveDashboardId] = useState(null);
